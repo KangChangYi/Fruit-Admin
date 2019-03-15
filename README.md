@@ -1,5 +1,7 @@
 # use vue3.0-template
 
+# Fruit-admin demo
+
 ## Project setup
 ```
 npm install
