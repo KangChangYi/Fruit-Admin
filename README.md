@@ -1,6 +1,6 @@
 # use vue3.0-template
 
-# Fruit-admin demo
+## Fruit-admin demo
 
 ## Project setup
 ```
