@@ -6,15 +6,15 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
-            path: '/login',
+            path: '/',
             name: 'login',
             component: () => import('../views/login/login.vue'),
         },
         {
-            path: '/',
+            path: '/index',
             name: 'index',
             component: () => import('../views/index/index.vue'),
-            redirect: 'commodityAdd',
+            redirect: 'commodityManage',
             children: [
                 {
                     path: '/commodityManage',

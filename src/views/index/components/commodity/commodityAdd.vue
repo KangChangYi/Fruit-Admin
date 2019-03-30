@@ -24,26 +24,15 @@
         <div class="cell-box">
             <div class="title">商品名</div>
             <div class="form">
-                <el-input
-                    v-model="commodity.name"
-                    placeholder="请输入商品名"
-                ></el-input>
+                <el-input v-model="commodity.name" placeholder="请输入商品名"></el-input>
             </div>
         </div>
         <div class="cell-box">
             <div class="title">商品类型</div>
             <div class="form">
-                <el-select
-                    v-model="commodity.type"
-                    placeholder="请选择"
-                    style="width:250px;"
-                >
-                    <el-option
-                        v-for="item in commodityType"
-                        :key="item.label"
-                        :label="item.label"
-                        :value="item.label"
-                    >
+                <el-select v-model="commodity.type" placeholder="请选择" style="width:250px;">
+                    <el-option v-for="item in commodityType" :key="item.label"
+                     :label="item.label" :value="item.label">
                     </el-option>
                 </el-select>
             </div>
@@ -51,48 +40,34 @@
         <div class="cell-box">
             <div class="title">价格</div>
             <div class="form">
-                <el-input
-                    v-model="commodity.price"
-                    placeholder="请输入价格"
-                ></el-input>
+                <el-input v-model="commodity.price" placeholder="请输入价格"></el-input>
             </div>
         </div>
         <div class="cell-box">
             <div class="title">商品介绍</div>
             <div class="form">
-                <el-input
-                    v-model="commodity.introduce"
-                    placeholder="请输入商品介绍"
-                ></el-input>
+                <el-input v-model="commodity.introduction" placeholder="请输入商品介绍"></el-input>
             </div>
         </div>
-        <div
-            class="cell-box"
-            style="marin:0px;"
-        >
+        <div class="cell-box" style="marin:0px;" >
             <div class="title">商品图片</div>
             <div class="form">
-                <Cropper
-                    :width="width"
-                    :height="height"
-                    imgtype="Base"
-                    v-on:datafromCropper="datafromCropper"
-                ></Cropper>
+                <Cropper :width="width" :height="height" imgtype="Base"
+                 v-on:datafromCropper="datafromCropper"></Cropper>
             </div>
         </div>
-        <div
-            class="cell-box"
-            style="marin:0px;"
-        >
+        <div class="cell-box" style="marin:0px;" >
             <div class="title"></div>
             <div class="form">
-                <el-button type="primary" :loading="false" long style="width:250px">提交</el-button>
+                <el-button type="primary" :loading="false" long
+                 style="width:250px" @click="submit">提交</el-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { insertFruits } from '../../../../api/all';
 import Cropper from '../../../../components/Cropper.vue';
 
 export default {
@@ -100,15 +75,15 @@ export default {
     data() {
         return {
             // 截图子组件宽高
-            width: 64,
-            height: 64,
+            width: 200,
+            height: 200,
             // 表单
             commodity: {
-                name: '',
-                type: '',
-                price: 0,
-                introduce: '',
-                img: '',
+                name: null,
+                type: null,
+                price: null,
+                introduction: null,
+                image: null,
             },
             commodityType: [{
                 label: '水果类',
@@ -118,13 +93,19 @@ export default {
         };
     },
     created() { },
-    mounted() {
-
-    },
+    mounted() { },
     methods: {
+        submit() {
+            console.log(this.commodity);
+            insertFruits(this.commodity).then((res) => {
+                console.log(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
         datafromCropper(data) {
             const CropperInfo = data;
-            this.commodity.img = CropperInfo;
+            this.commodity.image = CropperInfo;
         },
     },
     computed: {

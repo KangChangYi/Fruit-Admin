@@ -27,57 +27,59 @@
         <!-- <userGroupSelect></userGroupSelect> -->
         <div class="commodity-layout">
             <div class="table-box">
-                <el-table :data="tableData" stripe border class="table">
-                    <el-table-column prop="name" label="订单号" min-width="100" align="center">
+                <el-table :data="userInfo" stripe border class="table">
+                    <el-table-column prop="pkId" label="用户id" min-width="100" align="center">
                     </el-table-column>
-                    <el-table-column prop="type" label="用户id" min-width="100" align="center">
+                    <el-table-column prop="name" label="姓名" min-width="100" align="center">
                     </el-table-column>
-                    <el-table-column prop="price" label="商品详情" min-width="100" align="center" >
+                    <el-table-column prop="sex" label="性别" min-width="100" align="center" >
                     </el-table-column>
-                    <el-table-column prop="price" label="商品总价" min-width="100" align="center" >
+                    <el-table-column prop="birth" label="生日" min-width="100" align="center" >
                     </el-table-column>
-                    <el-table-column prop="introduction" label='地址' min-width="150"
+                    <el-table-column prop="telphone" label='电话' min-width="150"
                     align="center" >
-                    </el-table-column>
-                    <el-table-column prop="address" label="操作"  min-width="50" align="center">
-                          <template slot-scope="scope">
-                             <el-button size="small" type="danger"
-                             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                         </template>
                     </el-table-column>
                 </el-table>
             </div>
             <div class="paging-box">
-                <el-pagination background layout="prev, pager, next" page-size="10"
-                 :total="totalCount">
+                <el-pagination background layout="prev, pager, next" :page-size="pageSize"
+                 :total="totalCount"  :current-page="currentPage">
                 </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { getUserList } from '../../../../api/all';
 
 export default {
     name: 'users',
     data() {
         return {
-            totalCount: 100,
+            totalCount: 10,
+            pageSize: 10,
+            currentPage: 1,
             orderState: '发货',
-            tableData: [{
-                name: '王小虎',
-            }, {
-                name: '王小虎',
-            }, {
-                name: '王小虎',
-            }, {
-                name: '王小虎',
+            userInfo: [{
+                pkId: null,
+                name: null,
+                birth: null,
+                sex: null,
+                telphone: null,
             }],
         };
     },
-    created() { },
+    created() {
+        this.getData();
+    },
     mounted() { },
     methods: {
-
+        getData() {
+            getUserList().then((res) => {
+                this.userInfo = res.data.data;
+                console.log(res.data.data);
+            });
+        },
     },
     computed: {},
     watch: {},

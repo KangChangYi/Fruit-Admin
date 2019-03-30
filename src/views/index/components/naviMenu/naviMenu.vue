@@ -59,7 +59,7 @@
                     src="../../../../assets/image/icon-user.png"
                     class="menu-icon"
                 >
-                <span slot="title">用户管理</span>
+                <span slot="title">用户列表</span>
             </el-menu-item>
 
         </el-menu>
